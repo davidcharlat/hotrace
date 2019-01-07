@@ -97,7 +97,7 @@ static int			ft_findendl(int fd, t_read *red)
 	return (size);
 }
 
-int					get_next_line_with_lenght(int fd, char **line, int *lenght)
+int					gnl_len(int fd, char **line, int *lenght)
 {
 	static t_read	*start = NULL;
 	t_read			*red;

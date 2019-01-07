@@ -5,7 +5,7 @@ t_sorttree	*streenew (t_content cont)
 {
 	int			i;
 	t_sorttree	*temp;
-	
+
 	i = -1;
 	temp = (t_sorttree*)malloc(sizeof(t_sorttree));
 	if (!temp)
@@ -17,40 +17,41 @@ t_sorttree	*streenew (t_content cont)
 	return (temp);
 }
 
-int		nth_char_to_sbitchar (char *content, int content_size, int n)
+int			split (char *content, int cnt_size, int n)
 {
 	int	place;
 	
-	if ((n) > LEAVESPERCHAR * content_size)
+	if ((n) > LEAVESPERCHAR * cnt_size)
 		return (-1);
 	place = (n % LEAVESPERCHAR) * BITTOSORT;
-	return ((int)(((int)(content[n / LEAVESPERCHAR])>>place) & (NUMBEROFLEAVES - 1)));	
+	return ((int)(((int)(content[n / LEAVESPERCHAR])>>place)
+		& (NUMBEROFLEAVES - 1)));
 }
 
 void		streeins (t_sorttree *root, t_sorttree *node)
 {
 	t_content	temp;
-	int			nextletter;
+	int			nxt;
 
 	if (node)
 	{
 		node->level = root->level;
-		nextletter = nth_char_to_sbitchar((node->cont).content, (node->cont).content_size, node->level);
-		if (root->next[nextletter] == NULL)
+		nxt = split((node->cont).content, (node->cont).cnt_size, node->level);
+		if (root->next[nxt] == NULL)
 		{
-			root->next[nextletter] = node;
+			root->next[nxt] = node;
 			(node->level)++;
 		}
 		else
 		{
-			if ((root->next[nextletter]->cont).content_size > (node->cont).content_size)
+			if ((root->next[nxt]->cont).cnt_size > (node->cont).cnt_size)
 			{
 				temp = (node->cont);
-				node->cont = root->next[nextletter]->cont;
-				root->next[nextletter]->cont = temp;
+				node->cont = root->next[nxt]->cont;
+				root->next[nxt]->cont = temp;
 			}
-			if (root->level < LEAVESPERCHAR * (node->cont).content_size)
-				streeins (root->next[nextletter], node);
+			if (root->level < LEAVESPERCHAR * (node->cont).cnt_size)
+				streeins (root->next[nxt], node);
 		}
 	}
 }

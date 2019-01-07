@@ -3,7 +3,7 @@
 #include "../includes/sorttree.h"
 #include "../includes/hotrace.h"
 
-int	ft_unendedstr2cmp(const char *s1, const char *s2)
+static int		ft_unendedstr2cmp(const char *s1, const char *s2)
 {
 	if (!s1 && !s2)
 		return (0);
@@ -23,21 +23,21 @@ void		print_data (t_sorttree *root, char *line, int *line_len)
 {
 	int nextletter;
 		
-	while (root && *line_len > (root->cont).content_size )
+	while (root && *line_len > (root->cont).cnt_size )
 	{
-		nextletter = nth_char_to_sbitchar(line, *line_len, root->level);
+		nextletter = split(line, *line_len, root->level);
 		root = root->next[nextletter];
 	}
 	while (root && ft_unendedstr2cmp (line, (root->cont).content) 
-		&& *line_len == (root->cont).content_size)
+		&& *line_len == (root->cont).cnt_size)
 	{
-		nextletter = nth_char_to_sbitchar(line, *line_len, root->level);
+		nextletter = split(line, *line_len, root->level);
 		root = root->next[nextletter];
 	}
-	if (root && *line_len == (root->cont).content_size 
+	if (root && *line_len == (root->cont).cnt_size 
 		&& !ft_unendedstr2cmp (line, (root->cont).content))
 	{
-		if (write (1, (root->cont).data, (root->cont).data_size) + write (1, "\n", 1))
+		if (write (1, (root->cont).data, (root->cont).sz) + write (1, "\n", 1))
 			return;
 	}
 	else if (write (1, line, *line_len) + write (1, ": Not found.\n", 13))

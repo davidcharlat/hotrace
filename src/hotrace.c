@@ -29,23 +29,23 @@ int		main (void)
 	t_content			cont;
 
 	cont.content = NULL;
-	cont.content_size = 0;
+	cont.cnt_size = 0;
 	cont.data = NULL;
-	cont.data_size = 0;
+	cont.sz = 0;
 	tree = streenew (cont);
-	cont.content_size++;
-	while (cont.content_size)
+	cont.cnt_size++;
+	while (cont.cnt_size)
 	{
-		get_next_line_with_lenght (0, &(cont.content), &(cont.content_size));
-		if (cont.content_size)
+		gnl_len (0, &(cont.content), &(cont.cnt_size));
+		if (cont.cnt_size)
 		{
-			get_next_line_with_lenght (0, &(cont.data), &(cont.data_size));
+			gnl_len (0, &(cont.data), &(cont.sz));
 			streeins (tree, streenew (cont));
 		}
 	}
-	while (get_next_line_with_lenght (0, &(cont.content), &(cont.content_size)))
+	while (gnl_len (0, &(cont.content), &(cont.cnt_size)))
 	{
-		print_data (tree, cont.content, &(cont.content_size));
+		print_data (tree, cont.content, &(cont.cnt_size));
 		free (cont.content);
 	}
 	free_sorttree (tree);

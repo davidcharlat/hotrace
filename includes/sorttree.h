@@ -23,8 +23,8 @@ typedef struct			s_content
 {
 	char				*content;
 	char				*data;
-	int					content_size;
-	int					data_size;
+	int					cnt_size;
+	int					sz;
 }						t_content;
 
 typedef struct			s_sorttree
